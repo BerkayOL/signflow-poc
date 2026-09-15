@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
 import '../../domain/entities/chat_message.dart';
+import 'sign_message_media.dart';
 
 class SignMessageBubble extends StatelessWidget {
   const SignMessageBubble({
@@ -59,21 +60,11 @@ class SignMessageBubble extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: AppSpacing.md),
-                Container(
-                  height: 74,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: const Center(
-                    child: CircleAvatar(
-                      backgroundColor: AppColors.primary,
-                      child: Icon(
-                        Icons.play_arrow_rounded,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                SignMessageMedia(
+                  preview: message.preview,
+                  signLabel: sequence.signs.isEmpty
+                      ? sequence.languageCode
+                      : sequence.signs.first.label,
                 ),
                 const SizedBox(height: AppSpacing.md),
                 Text(

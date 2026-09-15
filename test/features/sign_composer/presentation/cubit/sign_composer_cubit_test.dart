@@ -119,8 +119,8 @@ class _FakeSignRepository implements SignRepository {
         ],
         languageCode: targetLanguage,
       ),
-      mediaSource: 'material://sign-language',
-      sourceType: SignPreviewSourceType.placeholderAsset,
+      mediaSource: 'assets/brand/orhapp_avatar_wave.jpg',
+      sourceType: SignPreviewSourceType.assetImage,
     );
   }
 

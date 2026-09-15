@@ -1,6 +1,5 @@
 import '../../domain/entities/sign_asset.dart';
 import '../../domain/entities/sign_preview.dart';
-import '../../domain/entities/sign_sequence.dart';
 import '../../domain/repositories/sign_repository.dart';
 import '../datasources/mock_sign_datasource.dart';
 
@@ -20,15 +19,10 @@ class SignRepositoryImpl implements SignRepository {
     required String text,
     required String targetLanguage,
   }) async {
-    final models = await _dataSource.createPreview(text);
-    return SignPreview(
-      sequence: SignSequence(
-        sourceText: text.trim(),
-        signs: models.map((model) => model.toDomain()).toList(growable: false),
-        languageCode: targetLanguage,
-      ),
-      mediaSource: 'material://sign-language',
-      sourceType: SignPreviewSourceType.placeholderAsset,
+    final model = await _dataSource.createPreview(text);
+    return model.toDomain(
+      sourceText: text.trim(),
+      targetLanguage: targetLanguage,
     );
   }
 }

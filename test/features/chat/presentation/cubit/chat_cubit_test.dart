@@ -17,8 +17,8 @@ void main() {
         ],
         languageCode: 'TİD',
       ),
-      mediaSource: 'material://sign-language',
-      sourceType: SignPreviewSourceType.placeholderAsset,
+      mediaSource: 'assets/brand/orhapp_avatar_wave.jpg',
+      sourceType: SignPreviewSourceType.assetImage,
     );
 
     cubit.addSignMessage(preview);

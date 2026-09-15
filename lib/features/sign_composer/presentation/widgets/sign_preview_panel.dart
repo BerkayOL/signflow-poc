@@ -52,30 +52,39 @@ class SignPreviewPanel extends StatelessWidget {
           style: TextStyle(color: Colors.white54, fontSize: 11),
         ),
         const SizedBox(height: AppSpacing.md),
-        Row(
-          children: [
-            TextButton.icon(
-              onPressed: isSending ? null : onRegenerate,
-              style: TextButton.styleFrom(foregroundColor: Colors.white),
-              icon: const Icon(Icons.refresh_rounded),
-              label: const Text('Tekrar oluştur'),
-            ),
-            const Spacer(),
-            FilledButton.icon(
-              onPressed: isSending ? null : onSend,
-              style: FilledButton.styleFrom(
-                backgroundColor: AppColors.success,
-                foregroundColor: AppColors.composer,
-              ),
-              icon: isSending
-                  ? const SizedBox.square(
-                      dimension: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : const Icon(Icons.send_rounded, size: 18),
-              label: const Text('Gönder'),
-            ),
-          ],
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final compact = constraints.maxWidth < 340;
+            return Row(
+              children: [
+                Expanded(
+                  child: TextButton.icon(
+                    onPressed: isSending ? null : onRegenerate,
+                    style: TextButton.styleFrom(foregroundColor: Colors.white),
+                    icon: const Icon(Icons.refresh_rounded),
+                    label: Text(compact ? 'Yenile' : 'Tekrar oluştur'),
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                Expanded(
+                  child: FilledButton.icon(
+                    onPressed: isSending ? null : onSend,
+                    style: FilledButton.styleFrom(
+                      backgroundColor: AppColors.success,
+                      foregroundColor: AppColors.composer,
+                    ),
+                    icon: isSending
+                        ? const SizedBox.square(
+                            dimension: 16,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.send_rounded, size: 18),
+                    label: const Text('Gönder'),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ],
     );

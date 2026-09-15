@@ -33,17 +33,18 @@ class SignPreviewCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: AppSpacing.lg),
-          Container(
-            width: 88,
-            height: 88,
-            decoration: const BoxDecoration(
-              color: AppColors.composerSurface,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.sign_language_rounded,
-              size: 46,
-              color: Colors.white,
+          AspectRatio(
+            aspectRatio: 16 / 9,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: ColoredBox(
+                color: AppColors.bubbleBackground,
+                child: _PreviewMedia(
+                  preview: preview,
+                  semanticLabel:
+                      'OrhApp karakteri, $featuredLabel işareti önizlemesi',
+                ),
+              ),
             ),
           ),
           const SizedBox(height: AppSpacing.md),
@@ -90,4 +91,39 @@ class SignPreviewCard extends StatelessWidget {
       ),
     );
   }
+}
+
+class _PreviewMedia extends StatelessWidget {
+  const _PreviewMedia({required this.preview, required this.semanticLabel});
+
+  final SignPreview preview;
+  final String semanticLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    return switch (preview.sourceType) {
+      SignPreviewSourceType.assetImage => Image.asset(
+        preview.mediaSource,
+        fit: BoxFit.contain,
+        alignment: Alignment.center,
+        cacheWidth: 720,
+        semanticLabel: semanticLabel,
+        errorBuilder: (_, _, _) => const _MediaFallback(),
+      ),
+      SignPreviewSourceType.remoteMedia => const _MediaFallback(),
+    };
+  }
+}
+
+class _MediaFallback extends StatelessWidget {
+  const _MediaFallback();
+
+  @override
+  Widget build(BuildContext context) => const Center(
+    child: Icon(
+      Icons.sign_language_rounded,
+      size: 46,
+      color: AppColors.primary,
+    ),
+  );
 }

@@ -34,6 +34,26 @@ void main() {
     expect(find.text('boşluk'), findsOneWidget);
   });
 
+  testWidgets('branded preview fits a compact Android viewport', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(320, 568));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(const SignMessagingApp());
+    await tester.pump();
+    await tester.tap(find.byTooltip('İşaret dili mesajı'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('MERHABA'));
+    await tester.tap(find.byTooltip('Önizle').last);
+    await tester.pumpAndSettle();
+
+    expect(
+      find.bySemanticsLabel('OrhApp karakteri, MERHABA işareti önizlemesi'),
+      findsOneWidget,
+    );
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('mode tabs and target language menu are interactive', (
     tester,
   ) async {
@@ -105,5 +125,28 @@ void main() {
     await tester.tap(find.text('ABC'));
     await tester.pump();
     expect(find.text('Q'), findsOneWidget);
+  });
+
+  testWidgets('sent sign bubble keeps the branded media source', (
+    tester,
+  ) async {
+    await tester.pumpWidget(const SignMessagingApp());
+    await tester.pump();
+    await tester.tap(find.byTooltip('İşaret dili mesajı'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('MERHABA'));
+    await tester.tap(find.byTooltip('Önizle').last);
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Gönder'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Gönder'));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.bySemanticsLabel(
+        'OrhApp karakteri, MERHABA işareti mesaj önizlemesi',
+      ),
+      findsOneWidget,
+    );
   });
 }
