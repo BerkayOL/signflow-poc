@@ -110,7 +110,7 @@ class _PreviewMedia extends StatelessWidget {
         semanticLabel: semanticLabel,
         errorBuilder: (_, _, _) => const _MediaFallback(),
       ),
-      SignPreviewSourceType.remoteMedia => const _MediaFallback(),
+      SignPreviewSourceType.networkVideo => const _MediaFallback(),
     };
   }
 }

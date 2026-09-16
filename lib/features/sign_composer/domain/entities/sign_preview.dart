@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 import 'sign_sequence.dart';
 
-enum SignPreviewSourceType { assetImage, remoteMedia }
+enum SignPreviewSourceType { assetImage, networkVideo }
 
 class SignPreview extends Equatable {
   const SignPreview({

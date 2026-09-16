@@ -56,7 +56,7 @@ class SignMessageMedia extends StatelessWidget {
       semanticLabel: 'OrhApp karakteri, $signLabel işareti mesaj önizlemesi',
       errorBuilder: (_, _, _) => const _MediaFallback(),
     ),
-    SignPreviewSourceType.remoteMedia => const _MediaFallback(),
+    SignPreviewSourceType.networkVideo => const _MediaFallback(),
   };
 }
 

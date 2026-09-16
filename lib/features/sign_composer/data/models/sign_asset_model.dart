@@ -5,13 +5,13 @@ class SignAssetModel {
     required this.id,
     required this.label,
     required this.languageCode,
-    required this.previewAssetPath,
+    this.previewAssetPath,
   });
 
   final String id;
   final String label;
   final String languageCode;
-  final String previewAssetPath;
+  final String? previewAssetPath;
 
   SignAsset toDomain() => SignAsset(
     id: id,
